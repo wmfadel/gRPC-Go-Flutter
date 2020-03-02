@@ -1,0 +1,35 @@
+syntax ="proto3";
+
+package proto;
+
+message Book{
+    string Id = 1;
+    string title = 2;
+    Author author = 3;
+    int32 releaseYear =4;
+}
+
+message Author{
+    string name = 1;
+    int32 age = 2;
+}
+
+message Empty{}
+
+message BookRequest{
+    string id = 1;
+}
+
+message BookList{
+    repeated Book books = 1;
+}
+
+service BooksService{
+    rpc getAllBooks(Empty) returns (BookList){}
+    rpc addBook(Book) returns (Book){}
+    rpc getBook(BookRequest) returns (Book){}
+    rpc updateBook (Book) returns (Book){}
+    rpc deleteBook(BookRequest) returns(Empty){}
+}
+
+// protoc --proto_path=proto --proto_path=third_party --go_out=plugins=grpc:proto service.proto
