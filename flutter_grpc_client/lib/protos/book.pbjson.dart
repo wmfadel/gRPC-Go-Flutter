@@ -10,16 +10,8 @@ const Book$json = const {
   '2': const [
     const {'1': 'Id', '3': 1, '4': 1, '5': 9, '10': 'Id'},
     const {'1': 'title', '3': 2, '4': 1, '5': 9, '10': 'title'},
-    const {'1': 'author', '3': 3, '4': 1, '5': 11, '6': '.proto.Author', '10': 'author'},
+    const {'1': 'author', '3': 3, '4': 1, '5': 9, '10': 'author'},
     const {'1': 'releaseYear', '3': 4, '4': 1, '5': 5, '10': 'releaseYear'},
-  ],
-};
-
-const Author$json = const {
-  '1': 'Author',
-  '2': const [
-    const {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'age', '3': 2, '4': 1, '5': 5, '10': 'age'},
   ],
 };
 

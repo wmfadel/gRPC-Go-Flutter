@@ -13,7 +13,7 @@ class Book extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('Book', package: const $pb.PackageName('proto'), createEmptyInstance: create)
     ..aOS(1, 'Id', protoName: 'Id')
     ..aOS(2, 'title')
-    ..aOM<Author>(3, 'author', subBuilder: Author.create)
+    ..aOS(3, 'author')
     ..a<$core.int>(4, 'releaseYear', $pb.PbFieldType.O3, protoName: 'releaseYear')
     ..hasRequiredFields = false
   ;
@@ -52,15 +52,13 @@ class Book extends $pb.GeneratedMessage {
   void clearTitle() => clearField(2);
 
   @$pb.TagNumber(3)
-  Author get author => $_getN(2);
+  $core.String get author => $_getSZ(2);
   @$pb.TagNumber(3)
-  set author(Author v) { setField(3, v); }
+  set author($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
   $core.bool hasAuthor() => $_has(2);
   @$pb.TagNumber(3)
   void clearAuthor() => clearField(3);
-  @$pb.TagNumber(3)
-  Author ensureAuthor() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.int get releaseYear => $_getIZ(3);
@@ -70,47 +68,6 @@ class Book extends $pb.GeneratedMessage {
   $core.bool hasReleaseYear() => $_has(3);
   @$pb.TagNumber(4)
   void clearReleaseYear() => clearField(4);
-}
-
-class Author extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Author', package: const $pb.PackageName('proto'), createEmptyInstance: create)
-    ..aOS(1, 'name')
-    ..a<$core.int>(2, 'age', $pb.PbFieldType.O3)
-    ..hasRequiredFields = false
-  ;
-
-  Author._() : super();
-  factory Author() => create();
-  factory Author.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Author.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  Author clone() => Author()..mergeFromMessage(this);
-  Author copyWith(void Function(Author) updates) => super.copyWith((message) => updates(message as Author));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static Author create() => Author._();
-  Author createEmptyInstance() => create();
-  static $pb.PbList<Author> createRepeated() => $pb.PbList<Author>();
-  @$core.pragma('dart2js:noInline')
-  static Author getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Author>(create);
-  static Author _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get name => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set name($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasName() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearName() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get age => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set age($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasAge() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearAge() => clearField(2);
 }
 
 class Empty extends $pb.GeneratedMessage {
