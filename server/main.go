@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"gRPC-Go-Flutter/proto"
 	"net"
+	"time"
 
-	"github.com/kjk/betterguid"
 	"google.golang.org/grpc"
 )
 
@@ -27,7 +27,7 @@ func (srv *BookService) GetAllBooks(ctx context.Context, empty *proto.Empty) (*p
 // AddBook func
 func (srv *BookService) AddBook(stx context.Context, book *proto.Book) (*proto.Book, error) {
 	if len(book.Id) < 1 {
-		book.Id = betterguid.New()
+		book.Id = time.Now().String()
 	}
 	srv.Books = append(srv.Books, book)
 	return book, nil
