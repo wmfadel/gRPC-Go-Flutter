@@ -20,18 +20,8 @@ class BooksProvider with ChangeNotifier {
     );
   }
 
-  Future<Book> addNewBook() async {
-    Book book = Book()
-      ..clearId()
-      ..clearTitle()
-      ..title = 'New Book Title'
-      ..clearAuthor()
-      ..author = 'Author Name'
-      ..clearReleaseYear()
-      ..releaseYear = 2020;
-
-    Book res = await client.addBook(book);
-
+  Future<Book> addNewBook(Book newBook) async {
+    Book res = await client.addBook(newBook);
     print(
         'added book\nres type: ${res.runtimeType}\nres data:\n${res.toString()}');
     allBooks.add(res);

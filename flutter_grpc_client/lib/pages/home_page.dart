@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_grpc_client/pages/add_book_page.dart';
 import 'package:flutter_grpc_client/protos/book.pb.dart';
 import 'package:flutter_grpc_client/providers/books_provider.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,8 @@ class _HomePageState extends State<HomePage> {
           IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                booksProvider.addNewBook();
+                //  booksProvider.addNewBook();
+                Navigator.of(context).pushNamed(AddBookPage.routeName);
               }),
         ],
       ),

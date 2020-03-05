@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_grpc_client/pages/add_book_page.dart';
 import 'package:flutter_grpc_client/pages/home_page.dart';
 import 'package:flutter_grpc_client/providers/books_provider.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         initialRoute: HomePage.routeName,
         routes: {
           HomePage.routeName: (context) => HomePage(),
+          AddBookPage.routeName: (context) => AddBookPage(),
         },
       ),
     );
