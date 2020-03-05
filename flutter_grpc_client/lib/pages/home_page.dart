@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
           IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                //  booksProvider.addNewBook();
                 Navigator.of(context).pushNamed(AddBookPage.routeName);
               }),
         ],
@@ -84,6 +83,11 @@ class _HomePageState extends State<HomePage> {
         buildSnackBar(result);
       },
       child: ListTile(
+        onTap: () => Navigator.of(context)
+            .pushNamed(AddBookPage.routeName, arguments: <String, dynamic>{
+          'update': true,
+          'id': book.id,
+        }),
         title: Text(book.title),
         subtitle: Text(book.author),
         trailing: Text(book.releaseYear.toString()),

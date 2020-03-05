@@ -22,8 +22,6 @@ class BooksProvider with ChangeNotifier {
 
   Future<Book> addNewBook(Book newBook) async {
     Book res = await client.addBook(newBook);
-    print(
-        'added book\nres type: ${res.runtimeType}\nres data:\n${res.toString()}');
     allBooks.add(res);
     notifyListeners();
     return res;
@@ -44,9 +42,23 @@ class BooksProvider with ChangeNotifier {
           ..id = id,
       );
     } on Exception catch (e) {
-      print('error on delete ${e.toString()}');
       return false;
     }
     return true;
+  }
+
+  Future<bool> updateBook(Book book) async {
+    Book updatedBook = await client.updateBook(book);
+    if (updatedBook != null) {
+      int index = allBooks.indexWhere((element) => element.id == book.id);
+      allBooks[index] = updatedBook;
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  Book getBookById(String id) {
+    return allBooks.firstWhere((element) => element.id == id, orElse: null);
   }
 }

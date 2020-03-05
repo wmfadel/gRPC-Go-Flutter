@@ -9,14 +9,33 @@ class AddBookPage extends StatelessWidget {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController authorController = TextEditingController();
   final TextEditingController yearController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final BooksProvider booksProvider =
         Provider.of<BooksProvider>(context, listen: false);
+
+    bool isUpdate = false;
+    String id;
+    Book toUpdateBook;
+    Map<String, dynamic> params = ModalRoute.of(context).settings.arguments;
+    if (params != null) {
+      isUpdate = params['update'];
+      id = params['id'];
+      toUpdateBook = booksProvider.getBookById(id);
+      if (toUpdateBook != null) {
+        titleController.text = toUpdateBook.title;
+        authorController.text = toUpdateBook.author;
+        yearController.text = toUpdateBook.releaseYear.toString();
+      } else {
+        isUpdate = false;
+      }
+    }
+
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Add New Book'),
+        title: Text(isUpdate ? 'update book' : 'Add New Book'),
         centerTitle: true,
         elevation: 0,
       ),
@@ -30,12 +49,13 @@ class AddBookPage extends StatelessWidget {
                 type: TextInputType.datetime),
             SizedBox(height: 25),
             RaisedButton(
-                child: Text('Add Book'),
+                child: Text(isUpdate ? 'Update Book' : 'Add Book'),
                 textColor: Colors.white,
                 color: Theme.of(context).accentColor,
                 onPressed: () {
                   Book book = Book()
                     ..clearId()
+                    ..id = isUpdate ? toUpdateBook.id : null
                     ..clearTitle()
                     ..title = titleController.text
                     ..clearAuthor()
@@ -43,12 +63,23 @@ class AddBookPage extends StatelessWidget {
                     ..clearReleaseYear()
                     ..releaseYear = int.parse(yearController.text);
 
-                  booksProvider.addNewBook(book).then((_) {
-                    buildSnackBar();
-                    titleController.clear();
-                    authorController.clear();
-                    yearController.clear();
-                  });
+                  isUpdate
+                      ? booksProvider.updateBook(book).then((bool status) {
+                          if (status) {
+                            buildSnackBar();
+                            titleController.clear();
+                            authorController.clear();
+                            yearController.clear();
+                          } else {
+                            buildSnackBar(failed: true);
+                          }
+                        })
+                      : booksProvider.addNewBook(book).then((_) {
+                          buildSnackBar();
+                          titleController.clear();
+                          authorController.clear();
+                          yearController.clear();
+                        });
                 }),
           ],
         ),
@@ -78,12 +109,15 @@ class AddBookPage extends StatelessWidget {
     );
   }
 
-  buildSnackBar() {
+  buildSnackBar({bool failed}) {
     scaffoldKey.currentState.removeCurrentSnackBar();
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-          content: Text('Book added successfully'),
-          backgroundColor: Colors.green),
+          content: Text(failed != null && failed
+              ? 'Operation Failed'
+              : 'Operation completed successfully'),
+          backgroundColor:
+              failed != null && failed ? Colors.red : Colors.green),
     );
   }
 }
